@@ -6,6 +6,7 @@ public class Cell {
     final static int BLUE = 3;
     final static int YELLOW = 4;
     final static int ORANGE = 5;
+    final static int SPOT = 6;
 
     final int DEFAULT_COLOR = WHITE;
 
@@ -42,6 +43,8 @@ public class Cell {
                 return "y";
             case ORANGE:
                 return "o";
+            case SPOT:
+                return "S";
             default:
                 return "";
         }
