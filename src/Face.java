@@ -62,7 +62,41 @@ public class Face {
         return face[1][1];
     }
 
+    public Cell[] getRow(int i) {
+        Cell[] row = new Cell[3];
+        for (int j = 0; j < 3; j++) {
+            row[j] = face[i][j];
+        }
+        return row;    
+    }
 
+    public void setRow(int i, Cell[] row) {
+        face[i] = row;
+    }
+
+
+    public Cell[] getColumn(int i) {
+        Cell[] column = new Cell[3];
+        for (int j = 0; j < 3; j++) {
+            column[j] = face[j][i];
+        }
+        return column;
+    }
+
+    public void setColumn(int i, Cell[] col) {
+        face[i] = col;
+    }
+
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                s += face[i][j].toString();
+            }
+            s += "\n";
+        }
+        return s;
+    }
 
     
    

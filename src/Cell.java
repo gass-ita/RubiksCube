@@ -28,4 +28,23 @@ public class Cell {
         this.color = color;
     }
 
+    public String toString() {
+        switch (color) {
+            case WHITE:
+                return "w";
+            case RED:
+                return "r";
+            case GREEN:
+                return "g";
+            case BLUE:
+                return "b";
+            case YELLOW:
+                return "y";
+            case ORANGE:
+                return "o";
+            default:
+                return "";
+        }
+    }
+
 }
