@@ -49,8 +49,8 @@ public class Cube {
         top.rotateClockwise();
         Cell[] temp = front.getRow(0);
         front.setRow(0, right.getRow(0));
-        right.setRow(0, back.getRow(0));
-        back.setRow(0, left.getRow(0));
+        right.setRow(0, back.getRow(2));
+        back.setRow(2, left.getRow(0));
         left.setRow(0, temp);
         return "U";
     }
@@ -59,8 +59,8 @@ public class Cube {
         top.rotateCounterClockwise();
         Cell[] temp = front.getRow(0);
         front.setRow(0, left.getRow(0));
-        left.setRow(0, back.getRow(0));
-        back.setRow(0, right.getRow(0));
+        left.setRow(0, back.getRow(2));
+        back.setRow(2, right.getRow(0));
         right.setRow(0, temp);
         return "U'";
     }
@@ -69,8 +69,8 @@ public class Cube {
         bottom.rotateClockwise();
         Cell[] temp = front.getRow(2);
         front.setRow(2, left.getRow(2));
-        left.setRow(2, back.getRow(2));
-        back.setRow(2, right.getRow(2));
+        left.setRow(2, back.getRow(0));
+        back.setRow(0, right.getRow(2));
         right.setRow(2, temp);
         return "D";
 
@@ -80,144 +80,222 @@ public class Cube {
         bottom.rotateCounterClockwise();
         Cell[] temp = front.getRow(2);
         front.setRow(2, right.getRow(2));
-        right.setRow(2, back.getRow(2));
-        back.setRow(2, left.getRow(2));
+        right.setRow(2, back.getRow(0));
+        back.setRow(0, left.getRow(2));
         left.setRow(2, temp);
         return "D'";
     }
 
     public String F(){
         front.rotateClockwise();
-        Cell[] temp = top.getRow(0);
-        top.setRow(0, left.getRow(0));
-        left.setRow(0, bottom.getRow(0));
-        bottom.setRow(0, right.getRow(0));
-        right.setRow(0, temp);
+        Cell[] temp = top.getRow(2);
+        top.setRow(2, left.getColumn(2));
+        left.setColumn(2, bottom.getRow(0));
+        bottom.setRow(0, right.getColumn(0));
+        right.setColumn(0, temp);
         return "F";
     }
 
     public String Fi(){
         front.rotateCounterClockwise();
-        Cell[] temp = top.getRow(0);
-        top.setRow(0, right.getRow(0));
-        right.setRow(0, bottom.getRow(0));
-        bottom.setRow(0, left.getRow(0));
-        left.setRow(0, temp);
+        Cell[] temp = top.getRow(2);
+        top.setRow(2, right.getColumn(0));
+        right.setColumn(0, bottom.getRow(0));
+        bottom.setRow(0, left.getColumn(2));
+        left.setColumn(2, temp);
         return "F'";
     }
 
     public String B(){
         back.rotateClockwise();
-        Cell[] temp = top.getRow(2);
-        top.setRow(2, right.getRow(2));
-        right.setRow(2, bottom.getRow(2));
-        bottom.setRow(2, left.getRow(2));
-        left.setRow(2, temp);
+        Cell[] temp = top.getRow(0);
+        top.setRow(0, right.getColumn(2));
+        right.setColumn(2, bottom.getRow(2));
+        bottom.setRow(2, left.getColumn(0));
+        left.setColumn(0, temp);
         return "B";
     }
 
     public String Bi(){
         back.rotateCounterClockwise();
-        Cell[] temp = top.getRow(2);
-        top.setRow(2, left.getRow(2));
-        left.setRow(2, bottom.getRow(2));
-        bottom.setRow(2, right.getRow(2));
-        right.setRow(2, temp);
+        Cell[] temp = top.getRow(0);
+        top.setRow(0, left.getColumn(0));
+        left.setColumn(0, bottom.getRow(2));
+        bottom.setRow(2, right.getColumn(2));
+        right.setColumn(2, temp);
         return "B'";
     }
 
     public String L(){
         left.rotateClockwise();
         Cell[] temp = top.getColumn(0);
-        top.setColumn(0, front.getColumn(0));
-        front.setColumn(0, bottom.getColumn(0));
-        bottom.setColumn(0, back.getColumn(0));
-        back.setColumn(0, temp);
+        top.setColumn(0, back.getColumn(0));
+        back.setColumn(0, bottom.getColumn(0));
+        bottom.setColumn(0, front.getColumn(0));
+        front.setColumn(0, temp);
         return "L";
     }
 
     public String Li(){
         left.rotateCounterClockwise();
         Cell[] temp = top.getColumn(0);
-        top.setColumn(0, back.getColumn(0));
-        back.setColumn(0, bottom.getColumn(0));
-        bottom.setColumn(0, front.getColumn(0));
-        front.setColumn(0, temp);
+        top.setColumn(0, front.getColumn(0));
+        front.setColumn(0, bottom.getColumn(0));
+        bottom.setColumn(0, back.getColumn(0));
+        back.setColumn(0, temp);
         return "L'";
     }
 
     public String R(){
         right.rotateClockwise();
         Cell[] temp = top.getColumn(2);
-        top.setColumn(2, back.getColumn(2));
-        back.setColumn(2, bottom.getColumn(2));
-        bottom.setColumn(2, front.getColumn(2));
-        front.setColumn(2, temp);
+        top.setColumn(2, front.getColumn(2));
+        front.setColumn(2, bottom.getColumn(2));
+        bottom.setColumn(2, back.getColumn(2));
+        back.setColumn(2, temp);
         return "R";
     }
 
     public String Ri(){
         right.rotateCounterClockwise();
         Cell[] temp = top.getColumn(2);
-        top.setColumn(2, front.getColumn(2));
-        front.setColumn(2, bottom.getColumn(2));
-        bottom.setColumn(2, back.getColumn(2));
-        back.setColumn(2, temp);
+        top.setColumn(2, back.getColumn(2));
+        back.setColumn(2, bottom.getColumn(2));
+        bottom.setColumn(2, front.getColumn(2));
+        front.setColumn(2, temp);
         return "R'";
     }
 
-    public void rotateCube(int direction){
-        switch (direction){
-            case UP:
-                right.rotateClockwise();
-                left.rotateCounterClockwise();
-                //put top face in front, bottom face in back, left face in left, right face in right
-                Cell[][] temp = front.getFace();
-                front.setFace(bottom.getFace());
-                bottom.setFace(back.getFace());
-                back.setFace(top.getFace());
-                top.setFace(temp);
-                break;
-            case DOWN:
-                right.rotateCounterClockwise();
-                left.rotateClockwise();
-                //put top face in back, bottom face in front, left face in right, right face in left
-                temp = front.getFace();
-                front.setFace(top.getFace());
-                top.setFace(back.getFace());
-                back.setFace(bottom.getFace());
-                bottom.setFace(temp);
-                break;
-            case RIGHT:
-                top.rotateCounterClockwise();
-                bottom.rotateClockwise();
-                //put front face in left, back face in right, right face on the front, left face on the back
-                temp = right.getFace();
-                right.setFace(front.getFace());
-                front.setFace(left.getFace());
-                left.setFace(back.getFace());
-                back.setFace(temp);
-                break;
-                
-            case LEFT:
-                top.rotateClockwise();
-                bottom.rotateCounterClockwise();                
-                //put front face in right, back face in left, right face on the back, left face on the front
-                temp = right.getFace();
-                right.setFace(back.getFace());
-                back.setFace(left.getFace());
-                left.setFace(front.getFace());
-                front.setFace(temp);
-                break;
+    public String M(){
+        Cell[] temp = top.getColumn(1);
+        top.setColumn(1, back.getColumn(1));
+        back.setColumn(1, bottom.getColumn(1));
+        bottom.setColumn(1, front.getColumn(1));
+        front.setColumn(1, temp);
+        return "M";
+    }
 
-                
-        }
-    } 
+    public String Mi(){
+        Cell[] temp = top.getColumn(1);
+        top.setColumn(1, front.getColumn(1));
+        front.setColumn(1, bottom.getColumn(1));
+        bottom.setColumn(1, back.getColumn(1));
+        back.setColumn(1, temp);
+        return "M'";
+    }
+
+    public String E(){
+        Cell[] temp = left.getRow(1);
+        left.setRow(1, back.getRow(1));
+        back.setRow(1, right.getRow(1));
+        right.setRow(1, front.getRow(1));
+        front.setRow(1, temp);
+        return "E";
+    }
+
+    public String Ei(){
+        Cell[] temp = left.getRow(1);
+        left.setRow(1, front.getRow(1));
+        front.setRow(1, right.getRow(1));
+        right.setRow(1, back.getRow(1));
+        back.setRow(1, temp);
+        return "E'";
+    }
+
+    public String S(){
+        Cell[] temp = top.getColumn(1);
+        top.setColumn(1, left.getRow(1));
+        left.setRow(1, bottom.getColumn(1));
+        bottom.setColumn(1, right.getRow(1));
+        right.setRow(1, temp);
+        return "S";
+    }
+
+    public String Si(){
+        Cell[] temp = top.getColumn(1);
+        top.setColumn(1, right.getRow(1));
+        right.setRow(1, bottom.getColumn(1));
+        bottom.setColumn(1, left.getRow(1));
+        left.setRow(1, temp);
+        return "S'";
+    }
+
+    public String X(){
+        right.rotateClockwise();
+        left.rotateCounterClockwise();
+        //move front on top, top on back, back on bottom, bottom on front
+        Cell[][] temp = front.getFace();
+        front.setFace(bottom.getFace());
+        bottom.setFace(back.getFace());
+        back.setFace(top.getFace());
+        top.setFace(temp);
+        return "X";
+    }
+
+    public String Xi(){
+        right.rotateCounterClockwise();
+        left.rotateClockwise();
+        //move front on bottom, bottom on back, back on top, top on front
+        Cell[][] temp = front.getFace();
+        front.setFace(top.getFace());
+        top.setFace(back.getFace());
+        back.setFace(bottom.getFace());
+        bottom.setFace(temp);
+        return "X'";
+    }
+
+    public String Y(){
+        top.rotateClockwise();
+        bottom.rotateCounterClockwise();
+        //move front on left, left on back, back on right, right on front
+        Cell[][] temp = front.getFace();
+        front.setFace(right.getFace());
+        right.setFace(back.getFace());
+        back.setFace(left.getFace());
+        left.setFace(temp);
+        return "Y";
+    }
+
+    public String Yi(){
+        top.rotateCounterClockwise();
+        bottom.rotateClockwise();
+        //move front on right, right on back, back on left, left on front
+        Cell[][] temp = front.getFace();
+        front.setFace(left.getFace());
+        left.setFace(back.getFace());
+        back.setFace(right.getFace());
+        right.setFace(temp);
+        return "Y'";
+    }
+
+    public String Z(){
+        front.rotateClockwise();
+        back.rotateCounterClockwise();
+        //move top on left, left on bottom, bottom on right, right on top
+        Cell[][] temp = top.getFace();
+        top.setFace(left.getFace());
+        left.setFace(bottom.getFace());
+        bottom.setFace(right.getFace());
+        right.setFace(temp);
+        return "Z";
+    }
+
+    public String Zi(){
+        front.rotateCounterClockwise();
+        back.rotateClockwise();
+        //move top on right, right on bottom, bottom on left, left on top
+        Cell[][] temp = top.getFace();
+        top.setFace(right.getFace());
+        right.setFace(bottom.getFace());
+        bottom.setFace(left.getFace());
+        left.setFace(temp);
+        return "Z'";
+    }
 
     public String scramble(){
         String scramble = "";
         for(int i = 0; i < 20; i++){
-            int rand = (int) (Math.random() * 12);
+            int rand = (int) (Math.random() * 24);
             switch(rand){
                 case 0:
                     scramble += U() + " ";
@@ -255,9 +333,127 @@ public class Cube {
                 case 11:
                     scramble += Ri() + " ";
                     break;
+                case 12:
+                    scramble += M() + " ";
+                    break;
+                case 13:
+                    scramble += Mi() + " ";
+                    break;
+                case 14:
+                    scramble += E() + " ";
+                    break;
+                case 15:
+                    scramble += Ei() + " ";
+                    break;
+                case 16:
+                    scramble += S() + " ";
+                    break;
+                case 17:
+                    scramble += Si() + " ";
+                    break;
+                case 18:
+                    scramble += X() + " ";
+                    break;
+                case 19:
+                    scramble += Xi() + " ";
+                    break;
+                case 20:
+                    scramble += Y() + " ";
+                    break;
+                case 21:
+                    scramble += Yi() + " ";
+                    break;
+                case 22:
+                    scramble += Z() + " ";
+                    break;
+                case 23:
+                    scramble += Zi() + " ";
+                    break;
+                default:
+                    break;
             }
         }
         return scramble;
+    }
+
+    public void algorithem(String s){
+        String[] moves = s.split(" ");
+        for(int i = 0; i < moves.length; i++){
+            switch(moves[i]){
+                case "U":
+                    U();
+                    break;
+                case "U'":
+                    Ui();
+                    break;
+                case "D":
+                    D();
+                    break;
+                case "D'":
+                    Di();
+                    break;
+                case "F":
+                    F();
+                    break;
+                case "F'":
+                    Fi();
+                    break;
+                case "B":
+                    B();
+                    break;
+                case "B'":
+                    Bi();
+                    break;
+                case "L":
+                    L();
+                    break;
+                case "L'":
+                    Li();
+                    break;
+                case "R":
+                    R();
+                    break;
+                case "R'":
+                    Ri();
+                    break;
+                case "M":
+                    M();
+                    break;
+                case "M'":
+                    Mi();
+                    break;
+                case "E":
+                    E();
+                    break;
+                case "E'":
+                    Ei();
+                    break;
+                case "S":
+                    S();
+                    break;
+                case "S'":
+                    Si();
+                    break;
+                case "X":
+                    X();
+                    break;
+                case "X'":
+                    Xi();
+                    break;
+                case "Y":
+                    Y();
+                    break;
+                case "Y'":
+                    Yi();
+                    break;
+                case "Z":
+                    Z();
+                    break;
+                case "Z'":
+                    Zi();
+                    break;
+            }
+        }
     }
 
     public String solve(){

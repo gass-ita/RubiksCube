@@ -3,7 +3,8 @@ public class App {
         Cube c = new Cube();
         System.out.println(c);
         System.out.println("Rotating...");
-        c.rotateCube(Cube.RIGHT);
+        c.algorithem("U");
         System.out.println(c);
+
     }
 }

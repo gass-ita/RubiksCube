@@ -84,7 +84,9 @@ public class Face {
     }
 
     public void setColumn(int i, Cell[] col) {
-        face[i] = col;
+        for (int j = 0; j < 3; j++) {
+            face[j][i] = col[j];
+        }
     }
 
     public String toString() {
