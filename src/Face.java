@@ -100,6 +100,10 @@ public class Face {
         return s;
     }
 
+    public Cell[][] getCells() {
+        return face;
+    }
+
     
    
 

@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+
 public class Cube {
-    public static final int UP = 0;
-    public static final int DOWN = 1;
+    public static final int FRONT = 0;
+    public static final int BACK = 1;
     public static final int LEFT = 2;
     public static final int RIGHT = 3;
+    public static final int TOP = 4;
+    public static final int BOTTOM = 5;
 
     private Face front;
     private Face back;
@@ -10,6 +14,8 @@ public class Cube {
     private Face right;
     private Face top;
     private Face bottom;
+
+    private ArrayList<MovementNotifyer> listeners;
     
     public Cube() {
         front = new Face(new Cell[][] {
@@ -43,6 +49,8 @@ public class Cube {
             {new Cell(Cell.RED), new Cell(Cell.RED), new Cell(Cell.RED)},
             {new Cell(Cell.RED), new Cell(Cell.RED), new Cell(Cell.RED)}
         });
+
+        listeners = new ArrayList<>();
     }
     /*--------------------------------------------------------------------------- */
     public String U(){
@@ -52,6 +60,7 @@ public class Cube {
         right.setRow(0, invertCells(back.getRow(2)));
         back.setRow(2, invertCells(left.getRow(0)));
         left.setRow(0, temp);
+        notifyMovement();
         return "U";
     }
 
@@ -62,6 +71,7 @@ public class Cube {
         left.setRow(0, invertCells(back.getRow(2)));
         back.setRow(2, invertCells(right.getRow(0)));
         right.setRow(0, temp);
+        notifyMovement();
         return "U'";
     }
 
@@ -72,6 +82,7 @@ public class Cube {
         left.setRow(2, invertCells(back.getRow(0)));
         back.setRow(0, invertCells(right.getRow(2)));
         right.setRow(2, temp);
+        notifyMovement();
         return "D";
 
     }
@@ -83,6 +94,7 @@ public class Cube {
         right.setRow(2, invertCells(back.getRow(0)));
         back.setRow(0, invertCells(left.getRow(2)));
         left.setRow(2, temp);
+        notifyMovement();
         return "D'";
     }
 
@@ -92,6 +104,7 @@ public class Cube {
         back.setRow(1, invertCells(right.getRow(1)));
         right.setRow(1, front.getRow(1));
         front.setRow(1, temp);
+        notifyMovement();
         return "E";
     }
 
@@ -101,6 +114,7 @@ public class Cube {
         front.setRow(1, right.getRow(1));
         right.setRow(1, invertCells(back.getRow(1)));
         back.setRow(1, invertCells(temp));
+        notifyMovement();
         return "E'";
     }
     /*--------------------------------------------------------------------------- */
@@ -112,6 +126,7 @@ public class Cube {
         left.setColumn(2, bottom.getRow(0));
         bottom.setRow(0, invertCells(right.getColumn(0)));
         right.setColumn(0, temp);
+        notifyMovement();
         return "F";
     }
 
@@ -122,6 +137,7 @@ public class Cube {
         right.setColumn(0, invertCells(bottom.getRow(0)));
         bottom.setRow(0, left.getColumn(2));
         left.setColumn(2, invertCells(temp));
+        notifyMovement();
         return "F'";
     }
 
@@ -132,6 +148,7 @@ public class Cube {
         right.setColumn(2, invertCells(bottom.getRow(2)));
         bottom.setRow(2, left.getColumn(0));
         left.setColumn(0, invertCells(temp));
+        notifyMovement();
         return "B";
     }
 
@@ -142,6 +159,7 @@ public class Cube {
         left.setColumn(0, bottom.getRow(2));
         bottom.setRow(2, invertCells(right.getColumn(2)));
         right.setColumn(2, temp);
+        notifyMovement();
         return "B'";
     }
 
@@ -151,6 +169,7 @@ public class Cube {
         left.setColumn(1, bottom.getRow(1));
         bottom.setRow(1, invertCells(right.getColumn(1)));
         right.setColumn(1, temp);
+        notifyMovement();
         return "S";
     }
 
@@ -160,6 +179,7 @@ public class Cube {
         right.setColumn(1, invertCells(bottom.getRow(1)));
         bottom.setRow(1, left.getColumn(1));
         left.setColumn(1, invertCells(temp));
+        notifyMovement();
         return "S'";
     }
     /*--------------------------------------------------------------------------- */
@@ -171,6 +191,7 @@ public class Cube {
         back.setColumn(0, bottom.getColumn(0));
         bottom.setColumn(0, front.getColumn(0));
         front.setColumn(0, temp);
+        notifyMovement();
         return "L";
     }
 
@@ -181,6 +202,7 @@ public class Cube {
         front.setColumn(0, bottom.getColumn(0));
         bottom.setColumn(0, back.getColumn(0));
         back.setColumn(0, temp);
+        notifyMovement();
         return "L'";
     }
 
@@ -191,6 +213,7 @@ public class Cube {
         front.setColumn(2, bottom.getColumn(2));
         bottom.setColumn(2, back.getColumn(2));
         back.setColumn(2, temp);
+        notifyMovement();
         return "R";
     }
 
@@ -201,6 +224,7 @@ public class Cube {
         back.setColumn(2, bottom.getColumn(2));
         bottom.setColumn(2, front.getColumn(2));
         front.setColumn(2, temp);
+        notifyMovement();
         return "R'";
     }
 
@@ -210,6 +234,7 @@ public class Cube {
         back.setColumn(1, bottom.getColumn(1));
         bottom.setColumn(1, front.getColumn(1));
         front.setColumn(1, temp);
+        notifyMovement();
         return "M";
     }
 
@@ -219,6 +244,7 @@ public class Cube {
         front.setColumn(1, bottom.getColumn(1));
         bottom.setColumn(1, back.getColumn(1));
         back.setColumn(1, temp);
+        notifyMovement();
         return "M'";
     }
 
@@ -235,6 +261,7 @@ public class Cube {
         bottom.setFace(back.getFace());
         back.setFace(top.getFace());
         top.setFace(temp);
+        notifyMovement();
         return "X";
     }
 
@@ -247,6 +274,7 @@ public class Cube {
         top.setFace(back.getFace());
         back.setFace(bottom.getFace());
         bottom.setFace(temp);
+        notifyMovement();
         return "X'";
     }
 
@@ -261,6 +289,7 @@ public class Cube {
         back.setFace(left.getFace());
         back.rotate180();
         left.setFace(temp);
+        notifyMovement();
         return "Y";
     }
 
@@ -275,6 +304,7 @@ public class Cube {
         back.setFace(right.getFace());
         back.rotate180();
         right.setFace(temp);
+        notifyMovement();
         return "Y'";
     }
 
@@ -291,6 +321,7 @@ public class Cube {
         bottom.rotateClockwise();
         right.setFace(temp);
         right.rotateClockwise();
+        notifyMovement();
         return "Z";
     }
 
@@ -307,6 +338,7 @@ public class Cube {
         bottom.rotateCounterClockwise();
         left.setFace(temp);
         left.rotateCounterClockwise();
+        notifyMovement();
         return "Z'";
     }
 
@@ -501,5 +533,35 @@ public class Cube {
             temp[i] = c[c.length - 1 - i];
         }
         return temp;
+    }
+
+
+    public Face getFace(int face) {
+        switch(face){
+            case TOP:
+                return top;
+            case FRONT:
+                return front;
+            case RIGHT:
+                return right;
+            case BACK:
+                return back;
+            case LEFT:
+                return left;
+            case BOTTOM:
+                return bottom;
+            default:
+                return null;           
+        }
+    }
+
+    public void addListeners(MovementNotifyer m){
+        listeners.add(m);
+    }
+
+    public void notifyMovement(){
+        for(MovementNotifyer m : listeners){
+            m.notifyMovement();
+        }
     }
 }
