@@ -38,12 +38,12 @@ public class CubeVisualization extends JPanel{
         FaceVisualization left = new FaceVisualization(faceWidth * 0, faceHeight * 2, faceWidth, faceHeight, c.getFace(Cube.LEFT));
         FaceVisualization right = new FaceVisualization(faceWidth * 2, faceHeight * 2, faceWidth, faceHeight, c.getFace(Cube.RIGHT));
 
-        c.addListeners(back);
-        c.addListeners(top);
-        c.addListeners(front);
-        c.addListeners(bottom);
-        c.addListeners(left);
-        c.addListeners(right);
+        c.getFace(Cube.BACK).addListeners(back);
+        c.getFace(Cube.TOP).addListeners(top);
+        c.getFace(Cube.FRONT).addListeners(front);
+        c.getFace(Cube.BOTTOM).addListeners(bottom);
+        c.getFace(Cube.LEFT).addListeners(left);
+        c.getFace(Cube.RIGHT).addListeners(right);
 
         add(back);
         add(top);

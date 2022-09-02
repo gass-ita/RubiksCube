@@ -9,7 +9,8 @@ public class App{
 
     JFrame f;
     JTextField t;
-    JButton b;
+    JButton moveButton;
+    JButton scrambleButton;
 
 
     public static void main(String[] args) throws Exception { 
@@ -22,7 +23,8 @@ public class App{
         
         f = new JFrame();
         t = new JTextField();
-        b = new JButton("Move");
+        moveButton = new JButton("Move");
+        scrambleButton = new JButton("Scrumble");
 
         f.setSize(800, 850);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,17 +34,22 @@ public class App{
 
         t.setBounds(650, 50, 100, 50);
 
-        b.setBounds(650, 100, 100, 50);
-        b.addActionListener(e -> {
+        moveButton.setBounds(650, 100, 100, 50);
+        moveButton.addActionListener(e -> {
             c.algorithem(t.getText());
             t.setText("");
+        });
+        scrambleButton.setBounds(650, 150, 100, 50);
+        scrambleButton.addActionListener(e -> {
+            c.scramble();
         });
         
 
 
         f.add(new CubeVisualization(0, 0, 600, 800, c));
         f.add(t);
-        f.add(b);
+        f.add(moveButton);
+        f.add(scrambleButton);
     }
 
 

@@ -1,10 +1,15 @@
+import java.util.ArrayList;
+
 public class Face {
 
     
     /* ---------------------------- private variables --------------------------- */
     private Cell[][] face;
+    private ArrayList<MovementNotifyer> listeners;
+
 
     public Face() {
+        setup();
         this.face = new Cell[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -14,7 +19,12 @@ public class Face {
     }
 
     public Face(Cell[][] face) {
+        setup();
         this.face = face;
+    }
+
+    private void setup(){
+        listeners = new ArrayList<>();
     }
 
     public Cell[][] getFace() {
@@ -23,6 +33,7 @@ public class Face {
 
     public void setFace(Cell[][] face) {
         this.face = face;
+        notifyMovement();
     }
 
     public Cell getCell(int row, int col) {
@@ -31,6 +42,7 @@ public class Face {
 
     public void setCell(int row, int col, Cell cell) {
         face[row][col] = cell;
+        notifyMovement();
     }
 
     public void rotateClockwise() {
@@ -41,6 +53,8 @@ public class Face {
             }
         }
         face = newFace;
+        notifyMovement();
+        
     }
 
     public void rotateCounterClockwise() {
@@ -51,11 +65,13 @@ public class Face {
             }
         }
         face = newFace;
+        notifyMovement();
     }
 
     public void rotate180() {
         rotateClockwise();
         rotateClockwise();
+        notifyMovement();
     }
 
     public Cell getCenter() {
@@ -71,7 +87,10 @@ public class Face {
     }
 
     public void setRow(int i, Cell[] row) {
-        face[i] = row;
+        for (int j = 0; j < 3; j++) {
+            face[i][j] = row[j];
+        }
+        notifyMovement();
     }
 
 
@@ -87,6 +106,7 @@ public class Face {
         for (int j = 0; j < 3; j++) {
             face[j][i] = col[j];
         }
+        notifyMovement();
     }
 
     public String toString() {
@@ -105,6 +125,14 @@ public class Face {
     }
 
     
-   
+    public void addListeners(MovementNotifyer m){
+        listeners.add(m);
+    }
+
+    public void notifyMovement(){
+        for(MovementNotifyer m : listeners){
+            m.notifyMovement();
+        }
+    }
 
 }
